@@ -22,7 +22,7 @@ night_students = generate_student_names("Night", 80) # For example, 80 night stu
 # Create a new workbook
 wb = openpyxl.Workbook()
 
-def create_sheet(wb, sheet_title, student_names, class_name):
+def create_attendance_sheet(wb, sheet_title, student_names, class_name):
     # Create a new sheet
     ws = wb.create_sheet(title=sheet_title)
     
@@ -242,8 +242,8 @@ if 'Sheet' in wb.sheetnames:
     wb.remove(default_sheet)
 
 # Create sheets for day and night students
-create_sheet(wb, "Day Students", day_students, "DAY")
-create_sheet(wb, "Night Students", night_students, "NIGHT")
+create_attendance_sheet(wb, "Day Students", day_students, "DAY")
+create_attendance_sheet(wb, "Night Students", night_students, "NIGHT")
 
 # Save the workbook to a file
 wb.save('student_sign_in_sheet.xlsx')

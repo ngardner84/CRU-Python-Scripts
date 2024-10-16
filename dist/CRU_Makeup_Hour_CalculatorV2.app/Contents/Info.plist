@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>CRU_Makeup_Hour_CalculatorV2</string>
+	<key>CFBundleExecutable</key>
+	<string>CRU_Makeup_Hour_CalculatorV2</string>
+	<key>CFBundleIconFile</key>
+	<string>generated-9a69b08d73ac78483b4ff665eaa9a0789b86b58c40e5336c2d042d0eb9a058bf.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>CRU_Makeup_Hour_CalculatorV2</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>CRU_Makeup_Hour_CalculatorV2</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.0.0</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+</dict>
+</plist>

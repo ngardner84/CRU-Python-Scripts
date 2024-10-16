@@ -7,6 +7,7 @@ from openpyxl.styles.alignment import Alignment
 from openpyxl.styles import Font
 from openpyxl.styles.borders import Border, Side
 import tkinter
+import CRU_Create_Attendance_Sheet
 
 
 class student:
@@ -349,7 +350,7 @@ def deleteHourReportColumns():
     sheet.delete_cols(14,5)
     sheet.delete_cols(4,9)
     sheet.delete_cols(1,1)
-    
+
 #4501
 def addStudentListInfo(studentList):
     row = 1
@@ -438,6 +439,12 @@ def getDayStudents(students):
             dayStudents.append(students[x])
     return dayStudents
 
+def getDayStudentNames(dayStudents):
+    dayStudentNames = []
+    for x in range(len(dayStudents)):
+            dayStudentNames.append(students[x].name)
+    return dayStudentNames
+
 #Get all night students into one list
 def getNightStudents(students):
     nightStudents = []
@@ -445,6 +452,12 @@ def getNightStudents(students):
         if students[x].studentType == "Night 24" or students[x].studentType == "Night 20":
             nightStudents.append(students[x])
     return nightStudents
+
+def getNightStudentNames(nightStudents):
+    nightStudentNames = []
+    for x in range(len(nightStudents)):
+            nightStudentNames.append(students[x].name)
+    return nightStudentNames
 
 def get_dates_and_days_of_next_month():
     # Get the current date
@@ -516,6 +529,7 @@ def fillSeparatedReport(allStudents, row):
         nightStudentColor = "007FEAFD" #light blue
         darkBlueColor = "00277EFF" #dark blue
         darkRedColor = "00FF0000" #dark red
+        whiteColor = "00FFFFFF" #white
         
         dateTimeHour410 = datetime.timedelta(days=17, hours=2) #410 hours
         dateTimeHour460 = datetime.timedelta(days=19, hours=4) #460 hours
@@ -639,6 +653,12 @@ def fillSeparatedReport(allStudents, row):
             sheet[endDateCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
             sheet[notesCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
             currentStudent.notes = "1500 SAP; "
+            
+        if dateTimeHour900 <= currentStudent.actualHours:
+            sheet[classcell].font = Font(color="00FFFFFF")#white
+        
+        if currentStudent.VA:
+            sheet[namecell].font = Font(color="00FFFFFF")#white
 
         # Reapply the notes cell after checking for SAPs
         sheet[notesCell].font = Font(color=SAPTextColor)
@@ -772,3 +792,11 @@ finalRow = fillSeparatedReport(dayStudents1200, fourthTeam+3)
 wb.save("Attendance Report " + datetime.datetime.now().strftime('%Y-%m-%d') + ".xlsx")
 wb.close()
 
+wb = openpyxl.Workbook()
+sheet = wb.active
+attendance_sheet = wb.create_sheet("Attendance")
+dayStudentNames = getDayStudentNames(dayStudents)
+nightStudentNames = getNightStudentNames(nightStudents)
+CRU_Create_Attendance_Sheet.create_attendance_sheet(wb, "Day Students", dayStudentNames, "DAY")
+CRU_Create_Attendance_Sheet.create_attendance_sheet(wb, "Night Students", nightStudentNames, "NIGHT")
+wb.save("Attendance Sheet " + datetime.datetime.now().strftime('%Y-%m-%d') + ".xlsx")
