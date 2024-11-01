@@ -45,6 +45,8 @@ else:
         # Calculate the percentage of events from social media
         social_media_entries = filtered_data[filtered_data['Source'] == 'Social media'].shape[0]
         ratio_social_media = social_media_entries / len(filtered_data) if len(filtered_data) > 0 else 0
+        paid_search_entries = filtered_data[filtered_data['Source'] == 'Paid search'].shape[0]
+        ratio_paid_search = paid_search_entries / len(filtered_data) if len(filtered_data) > 0 else 0
 
         # Count the occurrences of each event type in the filtered data
         event_counts = filtered_data['Event Type'].value_counts()
@@ -102,9 +104,12 @@ else:
         c.drawImage(ImageReader('event_types.png'), 72, 275, width=300, height=200)
         c.drawImage(ImageReader('numeric_utm_content.png'), 72, 75, width=400, height=200)
         
+        c.drawString(72, 105, f"Total Social Media Events: {social_media_entries}")
+        c.drawString(72, 85, f"Total Paid Search Events: {paid_search_entries}")
         c.drawString(72, 65, f"Percentage of events that were generated from ads: {(ratio_numeric_utm_content)*100:.2f}%")
         c.drawString(72, 45, f"Percentage of events from social media: {(ratio_social_media)*100:.2f}%")
-        c.drawString(72, 25, "Contact Names, Created At, Source and Event Types for Specified Events:")
+        c.drawString(72, 25, f"Percentage of events from paid search: {(ratio_paid_search)*100:.2f}%")
+        c.drawString(72, 5, "Contact Names, Created At, Source and Event Types for Specified Events:")
         
         # Sort the names and print them
         sorted_names = sorted(name_event_map.items())
