@@ -583,10 +583,11 @@ def fillSeparatedReport(allStudents, row):
         if currentStudent.VA == True:
             sheet[idcell].fill = PatternFill(start_color= VAStudentColor, end_color= VAStudentColor, fill_type= "solid")
             sheet[namecell].fill = PatternFill(start_color= VAStudentColor, end_color= VAStudentColor, fill_type= "solid")
-            sheet[namecell].font = Font(color="00FFFFFF")#white
             sheet[classcell].fill = PatternFill(start_color= VAStudentColor, end_color= VAStudentColor, fill_type= "solid")
             sheet[scheduledHoursCell].fill = PatternFill(start_color= VAStudentColor, end_color= VAStudentColor, fill_type= "solid")
             sheet[actualHoursCell].fill = PatternFill(start_color= VAStudentColor, end_color= VAStudentColor, fill_type= "solid")
+            # set namecell font to white
+            sheet[namecell].font = Font(color="FFFFFF")
         
         
         if "Night" in currentStudent.studentType:
