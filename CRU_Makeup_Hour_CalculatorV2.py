@@ -42,7 +42,7 @@ def calculate():
 
         # Start date
         start_date_input = entry_start_date.get()
-        start_date = datetime.strptime(start_date_input, "%Y-%m-%d").date()
+        start_date = datetime.strptime(start_date_input, "%m-%d-%Y").date()
 
         # Makeup hours schedule
         makeup_hours_schedule = {
@@ -70,7 +70,7 @@ def calculate():
             line = line.strip()
             if line:
                 try:
-                    holiday_date = datetime.strptime(line, "%Y-%m-%d").date()
+                    holiday_date = datetime.strptime(line, "%m-%d-%Y").date()
                     holidays.append(holiday_date)
                 except ValueError:
                     messagebox.showerror("Input Error", f"Invalid holiday date format: {line}")
@@ -131,12 +131,12 @@ def calculate():
         # Display results
         result_text = ""
         if makeup_completion_date:
-            result_text += f"Makeup hours will be completed on: {makeup_completion_date.strftime('%Y-%m-%d')}\n"
+            result_text += f"Makeup hours will be completed on: {makeup_completion_date.strftime('%m-%d-%Y')}\n"
         else:
             result_text += "Makeup hours will not be completed within the calculated period or no makeup hours were scheduled.\n"
 
         if graduation_date:
-            result_text += f"Graduation will be completed on: {graduation_date.strftime('%Y-%m-%d')}\n"
+            result_text += f"Graduation will be completed on: {graduation_date.strftime('%m-%d-%Y')}\n"
             result_text += f"Total number of days until graduation: {day_count}\n"
         else:
             result_text += "Graduation will not be completed within the calculated period.\n"
@@ -145,7 +145,7 @@ def calculate():
         result_text += "\nDay\tDate\t\tHours Earned\tCumulative Hours\n"
         for entry in dates_hours:
             day_number = entry[0]
-            date_str = entry[1].strftime("%Y-%m-%d")
+            date_str = entry[1].strftime("%m-%d-%Y")
             hours_earned = entry[2]
             cumulative_hours = entry[3]
             result_text += f"{day_number}\t{date_str}\t{hours_earned}\t\t{cumulative_hours}\n"
@@ -226,7 +226,7 @@ predefined_holidays = [
 def load_predefined_holidays():
     holidays_text = ''
     for holiday in predefined_holidays:
-        holidays_text += holiday.strftime("%Y-%m-%d") + '\n'
+        holidays_text += holiday.strftime("%m-%d-%Y") + '\n'
     text_holidays.insert(tk.END, holidays_text)
 
 # Function to load a predefined schedule into the normal hours entries
@@ -298,12 +298,12 @@ ttk.Label(frame_inputs, text="Enter the target number of hours to be behind afte
 entry_target_hours_behind = ttk.Entry(frame_inputs)
 entry_target_hours_behind.grid(row=3, column=1)
 
-ttk.Label(frame_inputs, text="Enter the start date for the plan (YYYY-MM-DD):").grid(row=4, column=0, sticky="W")
+ttk.Label(frame_inputs, text="Enter the start date for the plan (MM-DD-YYYY):").grid(row=4, column=0, sticky="W")
 entry_start_date = ttk.Entry(frame_inputs)
 entry_start_date.grid(row=4, column=1)
 
 # Holidays input
-ttk.Label(frame_inputs, text="Holidays (YYYY-MM-DD, one per line):").grid(row=5, column=0, sticky="NW")
+ttk.Label(frame_inputs, text="Holidays (MM-DD-YYYY, one per line):").grid(row=5, column=0, sticky="NW")
 text_holidays = tk.Text(frame_inputs, width=20, height=10)
 text_holidays.grid(row=5, column=1, sticky="W")
 
