@@ -1,3 +1,0 @@
-([('CRU_Makeup_Hour_CalculatorV2',
-   '/Users/a016680753/CRU Python Scripts/dist/CRU_Makeup_Hour_CalculatorV2',
-   'EXECUTABLE')],)
