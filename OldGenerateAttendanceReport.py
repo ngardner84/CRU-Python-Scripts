@@ -524,11 +524,11 @@ def fillSeparatedReport(allStudents, row):
         yellowColor = "00FFFF00" #yellow
         lowAttendanceColor = "00CBC3E3" #light purple
         SAPTextColor = "000000BB" #dark blue
-        VAStudentColor = "00FD5A87" #red
-        LOAColor = "00838383" #gray
+        VAStudentColor = "00FE9AB6" #red
+        LOAColor = "00b3b3b3" #gray
         nightStudentColor = "007FEAFD" #light blue
         darkBlueColor = "00277EFF" #dark blue
-        darkRedColor = "00FF0000" #dark red
+        darkRedColor = "00FF4D4D" #dark red
         whiteColor = "00FFFFFF" #white
         
         dateTimeHour410 = datetime.timedelta(days=17, hours=2) #410 hours
@@ -536,6 +536,8 @@ def fillSeparatedReport(allStudents, row):
         dateTimeHour860 = datetime.timedelta(days=35, hours=20) #860 hours
         dateTimeHour900 = datetime.timedelta(days=37, hours=12) #900 hours
         dateTimeHour910 = datetime.timedelta(days=37, hours=22) #910 hours
+        dateTimeHour960 = datetime.timedelta(days=40) #960 hours
+        dateTimeHour1010 = datetime.timedelta(days=42, hours=2) #1010 hours
         dateTimeHour1150 = datetime.timedelta(days=47, hours=22) #1150 hours
         dateTimeHour1210 = datetime.timedelta(days=50, hours=10) #1210 hours
         dateTimeHour1450 = datetime.timedelta(days=60, hours=10) #1450 hours
@@ -632,6 +634,10 @@ def fillSeparatedReport(allStudents, row):
         if dateTimeHour860 <= currentStudent.actualHours <= dateTimeHour910:    
             sheet[idcell].fill = PatternFill(start_color = SAPColor, end_color=SAPColor, fill_type = "solid")
             currentStudent.notes = "900 SAP; " 
+        
+        if dateTimeHour960 <= currentStudent.actualHours <= dateTimeHour1010 and currentStudent.hourAmount == "1000":
+            sheet[idcell].fill = PatternFill(start_color = SAPColor, end_color=SAPColor, fill_type = "solid")
+            currentStudent.notes = "1000 GRAD "
             
         if dateTimeHour1150 <= currentStudent.actualHours <= dateTimeHour1210:
             sheet[idcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
@@ -700,44 +706,43 @@ sheet = wb.create_sheet("Night Student Hour Separation")
 
 nightStudents = getNightStudents(students)
 #Separate students into different lists depending on their hour amount
-nightStudents250 = []
-nightStudents450 = []
-nightStudents900 = []
+nightStudents225 = []
+nightStudents600 = []
 nightStudents1000 = []
 nightStudents1200 = []
 
 for student in nightStudents:
     if type(student.actualHours) is datetime.time:
-        nightStudents250.append(student)
+        nightStudents225.append(student)
         continue
-    if student.actualHours <= datetime.timedelta(days=10, hours=10):
-        nightStudents250.append(student)
-    elif datetime.timedelta(days=10) < student.actualHours <= datetime.timedelta(days=18, hours=18):
-        nightStudents450.append(student)
-    elif datetime.timedelta(days=18, hours=18) < student.actualHours <= datetime.timedelta(days=37, hours=12):
-        nightStudents900.append(student)
-    elif datetime.timedelta(days=37, hours=12) < student.actualHours:
+    if student.actualHours <= datetime.timedelta(days=9, hours=9):
+        nightStudents225.append(student)
+    elif datetime.timedelta(days=9) < student.actualHours <= datetime.timedelta(days=25):
+        nightStudents600.append(student)
+    elif datetime.timedelta(days=25) < student.actualHours <= datetime.timedelta(days=41, hours=16):
+        nightStudents1000.append(student)
+    elif datetime.timedelta(days=41, hours=16) < student.actualHours:
         nightStudents1200.append(student)
 
 createTemplate()
 titleCell = "C5"
 teamCell = "I5"
-sheet[titleCell] = "1-250 FRESHMEN (friend & family only no charge)"
+sheet[titleCell] = "1-225 FRESHMEN (friend & family only no charge)"
 sheet[teamCell] = "WHITE TEAM"
-secondTeam = fillSeparatedReport(nightStudents250, 6)
+secondTeam = fillSeparatedReport(nightStudents225, 6)
 titleCell = "C" + str(secondTeam+2)
 teamCell = "I" + str(secondTeam+2)
-sheet[titleCell] = "251-450 SOPHOMORE MAIN FLOOR"
+sheet[titleCell] = "226-600 SOPHOMORE MAIN FLOOR"
 sheet[teamCell] = "YELLOW TEAM"
-thirdTeam = fillSeparatedReport(nightStudents450, secondTeam+3)
+thirdTeam = fillSeparatedReport(nightStudents600, secondTeam+3)
 titleCell = "C" + str(thirdTeam+2)
 teamCell = "I" + str(thirdTeam+2)
-sheet[titleCell] = "451-900 SENIOR MAIN FLOOR (all services)"
+sheet[titleCell] = "601-1000 SENIOR MAIN FLOOR (all services)"
 sheet[teamCell] = "RED TEAM"
-fourthTeam = fillSeparatedReport(nightStudents900, thirdTeam+3)
+fourthTeam = fillSeparatedReport(nightStudents1000, thirdTeam+3)
 titleCell = "C" + str(fourthTeam+2)
 teamCell = "I" + str(fourthTeam+2)
-sheet[titleCell] = "901-1200/1500 SB (complete Tests & Time card)"
+sheet[titleCell] = "1001-1200/1500 SB (complete Tests & Time card)"
 sheet[teamCell] = "GREEN TEAM"
 finalRow = fillSeparatedReport(nightStudents1200, fourthTeam+3)
 #nextRow = fillSeparatedReport(dayStudents, row)
@@ -748,43 +753,43 @@ sheet = wb.create_sheet("Day Student Hour Separation")
 
 dayStudents = getDayStudents(students)
 #Separate students into different lists depending on their hour amount
-dayStudents250 = []
-dayStudents450 = []
-dayStudents900 = []
+dayStudents225 = []
+dayStudents600 = []
+dayStudents1000 = []
 dayStudents1200 = []
 
 for student in dayStudents:
     if type(student.actualHours) is datetime.time:
-        dayStudents250.append(student)
+        dayStudents225.append(student)
         continue
-    if student.actualHours <= datetime.timedelta(days=10, hours=10):
-        dayStudents250.append(student)
-    elif datetime.timedelta(days=10) < student.actualHours <= datetime.timedelta(days=18, hours=18):
-        dayStudents450.append(student)
-    elif datetime.timedelta(days=18, hours=18) < student.actualHours <= datetime.timedelta(days=37, hours=12):
-        dayStudents900.append(student)
-    elif datetime.timedelta(days=37, hours=12) < student.actualHours:
+    if student.actualHours <= datetime.timedelta(days=9, hours=9):
+        dayStudents225.append(student)
+    elif datetime.timedelta(days=9) < student.actualHours <= datetime.timedelta(days=25):
+        dayStudents600.append(student)
+    elif datetime.timedelta(days=25) < student.actualHours <= datetime.timedelta(days=41, hours=16):
+        dayStudents1000.append(student)
+    elif datetime.timedelta(days=41, hours=16) < student.actualHours:
         dayStudents1200.append(student)
 
 createTemplate()
 titleCell = "C5"
 teamCell = "I5"
-sheet[titleCell] = "1-250 FRESHMEN (friend & family only no charge)"
+sheet[titleCell] = "1-225 FRESHMEN (friend & family only no charge)"
 sheet[teamCell] = "WHITE TEAM"
-secondTeam = fillSeparatedReport(dayStudents250, 6)
+secondTeam = fillSeparatedReport(dayStudents225, 6)
 titleCell = "C" + str(secondTeam+2)
 teamCell = "I" + str(secondTeam+2)
-sheet[titleCell] = "251-450 SOPHOMORE MAIN FLOOR"
+sheet[titleCell] = "226-600 SOPHOMORE MAIN FLOOR"
 sheet[teamCell] = "YELLOW TEAM"
-thirdTeam = fillSeparatedReport(dayStudents450, secondTeam+3)
+thirdTeam = fillSeparatedReport(dayStudents600, secondTeam+3)
 titleCell = "C" + str(thirdTeam+2)
 teamCell = "I" + str(thirdTeam+2)
-sheet[titleCell] = "451-900 SENIOR MAIN FLOOR (all services)"
+sheet[titleCell] = "601-1000 SENIOR MAIN FLOOR (all services)"
 sheet[teamCell] = "RED TEAM"
-fourthTeam = fillSeparatedReport(dayStudents900, thirdTeam+3)
+fourthTeam = fillSeparatedReport(dayStudents1000, thirdTeam+3)
 titleCell = "C" + str(fourthTeam+2)
 teamCell = "I" + str(fourthTeam+2)
-sheet[titleCell] = "901-1200/1500 SB (complete Tests & Time card)"
+sheet[titleCell] = "1001-1200/1500 SB (complete Tests & Time card)"
 sheet[teamCell] = "GREEN TEAM"
 finalRow = fillSeparatedReport(dayStudents1200, fourthTeam+3)
 #nextRow = fillSeparatedReport(dayStudents, row)
