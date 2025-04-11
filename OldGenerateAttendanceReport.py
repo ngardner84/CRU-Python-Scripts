@@ -129,7 +129,7 @@ def fillReport(students, givenRow):
         lowAttendanceColor = "00CBC3E3" #light purple
         SAPTextColor = "000000BB" #dark blue
         VAStudentColor = "00FD5A87" #red
-        LOAColor = "00838383" #gray
+        LOAColor = "00F2F2F2" #gray
         nightStudentColor = "007FEAFD" #light blue
         darkBlueColor = "00277EFF" #dark blue
         darkRedColor = "00FF0000" #dark red
@@ -139,6 +139,8 @@ def fillReport(students, givenRow):
         dateTimeHour860 = datetime.timedelta(days=35, hours=20) #860 hours
         dateTimeHour900 = datetime.timedelta(days=37, hours=12) #900 hours
         dateTimeHour910 = datetime.timedelta(days=37, hours=22) #910 hours
+        dateTimeHour940 = datetime.timedelta(days=39, hours=4) #940 hours
+        dateTimeHour1010 = datetime.timedelta(days=42, hours=2) #1010 hours
         dateTimeHour1150 = datetime.timedelta(days=47, hours=22) #1150 hours
         dateTimeHour1210 = datetime.timedelta(days=50, hours=10) #1210 hours
         dateTimeHour1450 = datetime.timedelta(days=60, hours=10) #1450 hours
@@ -231,7 +233,18 @@ def fillReport(students, givenRow):
             
         if dateTimeHour860 <= currentStudent.actualHours <= dateTimeHour910:    
             sheet[idcell].fill = PatternFill(start_color = SAPColor, end_color=SAPColor, fill_type = "solid")
-            currentStudent.notes = "900 SAP; " 
+            currentStudent.notes = "900 SAP; "
+            
+        if dateTimeHour940 <= currentStudent.actualHours <= dateTimeHour1010:
+            sheet[idcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[namecell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[classcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[scheduledHoursCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[actualHoursCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[attendancePercentageCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[endDateCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[notesCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            currentStudent.notes += "1000 GRAD "
             
         if dateTimeHour1150 <= currentStudent.actualHours <= dateTimeHour1210:
             sheet[idcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
@@ -536,7 +549,7 @@ def fillSeparatedReport(allStudents, row):
         dateTimeHour860 = datetime.timedelta(days=35, hours=20) #860 hours
         dateTimeHour900 = datetime.timedelta(days=37, hours=12) #900 hours
         dateTimeHour910 = datetime.timedelta(days=37, hours=22) #910 hours
-        dateTimeHour960 = datetime.timedelta(days=40) #960 hours
+        dateTimeHour940 = datetime.timedelta(days=39, hours=4) #940 hours
         dateTimeHour1010 = datetime.timedelta(days=42, hours=2) #1010 hours
         dateTimeHour1150 = datetime.timedelta(days=47, hours=22) #1150 hours
         dateTimeHour1210 = datetime.timedelta(days=50, hours=10) #1210 hours
@@ -629,15 +642,22 @@ def fillSeparatedReport(allStudents, row):
         
         if dateTimeHour410 <= currentStudent.actualHours <= dateTimeHour460:
             sheet[idcell].fill = PatternFill(start_color = SAPColor, end_color=SAPColor, fill_type = "solid")
-            currentStudent.notes = "450 SAP; "
+            currentStudent.notes += "450 SAP; "
             
         if dateTimeHour860 <= currentStudent.actualHours <= dateTimeHour910:    
             sheet[idcell].fill = PatternFill(start_color = SAPColor, end_color=SAPColor, fill_type = "solid")
-            currentStudent.notes = "900 SAP; " 
+            currentStudent.notes += "900 SAP; " 
         
-        if dateTimeHour960 <= currentStudent.actualHours <= dateTimeHour1010 and currentStudent.hourAmount == "1000":
-            sheet[idcell].fill = PatternFill(start_color = SAPColor, end_color=SAPColor, fill_type = "solid")
-            currentStudent.notes = "1000 GRAD "
+        if dateTimeHour940 <= currentStudent.actualHours <= dateTimeHour1010:
+            sheet[idcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[namecell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[classcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[scheduledHoursCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[actualHoursCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[attendancePercentageCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[endDateCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            sheet[notesCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
+            currentStudent.notes += "1000 GRAD "
             
         if dateTimeHour1150 <= currentStudent.actualHours <= dateTimeHour1210:
             sheet[idcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
@@ -648,7 +668,8 @@ def fillSeparatedReport(allStudents, row):
             sheet[attendancePercentageCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
             sheet[endDateCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
             sheet[notesCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
-            currentStudent.notes = "1200 SAP; "    
+            currentStudent.notes += "1200 SAP; "    
+            
             
         if dateTimeHour1450 <= currentStudent.actualHours <= dateTimeHour1510:
             sheet[idcell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
@@ -659,7 +680,7 @@ def fillSeparatedReport(allStudents, row):
             sheet[attendancePercentageCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
             sheet[endDateCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
             sheet[notesCell].fill = PatternFill(start_color = SAP1200Color, end_color=SAP1200Color, fill_type = "solid")
-            currentStudent.notes = "1500 SAP; "
+            currentStudent.notes += "1500 SAP; "
             
         if dateTimeHour900 <= currentStudent.actualHours:
             sheet[classcell].font = Font(color="00FFFFFF")#white
